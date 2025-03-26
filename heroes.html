@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TeleCom - Stay Connected</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f4f4;
+    }
+    .header {
+      background-color: #0047AB;
+      color: white;
+      padding: 20px;
+      text-align: center;
+    }
+    .hero {
+      background: url('satellite1.jpeg') no-repeat center center/cover;
+      height: 400px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #0088ff; 
+      text-align: center;
+      font-size: 2rem;
+      font-weight: bold;
+      animation: fadeIn 2s ease-in-out;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    .search-container {
+      margin: 20px auto;
+      max-width: 400px;
+      text-align: center;
+    }
+    .search-results {
+      margin-top: 10px;
+      background: white;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      max-height: 200px;
+      overflow-y: auto;
+    }
+    .search-results div {
+      padding: 10px;
+      border-bottom: 1px solid #ddd;
+      cursor: pointer;
+    }
+    .search-results div:hover {
+      background-color: #f1f1f1;
+    }
+    footer {
+      background-color: #0047AB;
+      color: white;
+      text-align: center;
+      padding: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1><i class="fas fa-broadcast-tower"></i> TeleCom</h1>
+  </div>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <div class="container">
+     
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item"><a class="nav-link" href="homepage.html">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="gallery.html">Gallery</a></li>
+          <li class ="nav-item"><a class="nav-link" href="plans.html">Plans</a></li> 
+        
+         
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <div class="hero">
+    Stay Connected with the Best Telecom Services
+  </div>
+  <div class="search-container">
+    <input type="text" id="search-box" class="form-control" placeholder="Search features...">
+    <div id="search-results" class="search-results"></div>
+  </div>
+  <div class="jumbotron text-center">
+    <h1>Welcome to Our Features</h1>
+    <p>Discover the best of TeleCom services.</p>
+    <button class="btn btn-primary" id="load-features">Learn More</button>
+  </div>
+  <div class="container" id="features-container"></div>
+  <footer>
+    <p>© 2024 TeleCom. All Rights Reserved.</p>
+  </footer>
+  <script>
+    $(document).ready(function() {
+      $("#search-box").on("keyup", function() {
+        let query = $(this).val();
+        if (query.length > 1) {
+          $.ajax({
+            url: "features.json", 
+            method: "GET",
+            success: function(data) {
+              let results = data.filter(item => item.name.toLowerCase().includes(query.toLowerCase()));
+              let output = results.map(item => `<div>${item.name}</div>`).join('');
+              $("#search-results").html(output);
+            }
+          });
+        } else {
+          $("#search-results").html("");
+        }
+      });
+      
+      $("#load-features").on("click", function() {
+        $.ajax({
+          url: "features.json", 
+          method: "GET",
+          success: function(data) {
+            let output = data.map(feature => `
+              <div class='card mt-3'>
+                <div class='card-body'>
+                  <h5 class='card-title'>${feature.name}</h5>
+                  <p class='card-text'>${feature.description}</p>
+                </div>
+              </div>`
+            ).join('');
+            $("#features-container").html(output);
+          }
+        });
+      });
+    });
+  </script>
+</body>
+</html>

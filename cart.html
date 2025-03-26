@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="telecomApp">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cart - TeleCom</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+    }
+    .header {
+      background-color: #0047AB;
+      color: white;
+      padding: 20px;
+      text-align: center;
+    }
+    .cart-table {
+      margin: 30px auto;
+      width: 80%;
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    .btn-remove {
+      color: white;
+      background-color: red;
+      border: none;
+      padding: 5px 10px;
+      cursor: pointer;
+    }
+    .navbar {
+      background-color: #0047AB;
+    }
+    .navbar .navbar-brand, .navbar .nav-link {
+      color: white;
+    }
+  </style>
+</head>
+<body ng-controller="CartController">
+  <nav class="navbar navbar-expand-lg navbar-dark">
+    <div class="container">
+      <a class="navbar-brand" href="#">TeleCom</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item"><a class="nav-link" href="plan7.html">Plans</a></li>
+          <li class="nav-item"><a class="nav-link" href="homepage.html">Home</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <div class="header">
+    <h1>My Cart</h1>
+  </div>
+
+  <table class="table cart-table">
+    <thead class="thead-dark">
+      <tr>
+        <th>Plan</th>
+        <th>Price</th>
+        <th>Date Added</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="item in cart">
+        <td>{{ item.name | uppercase }}</td>
+        <td>₹{{ item.price }}</td>
+        <td>{{ item.date | date:'dd-MMM-yyyy' }}</td>
+        <td><button class="btn-remove" ng-click="removeFromCart($index)">X</button></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <script>
+    var app = angular.module("telecomApp", []);
+    app.controller("CartController", function($scope) {
+      $scope.cart = JSON.parse(localStorage.getItem("cart")) || [];
+      $scope.removeFromCart = function(index) {
+        $scope.cart.splice(index, 1);
+        localStorage.setItem("cart", JSON.stringify($scope.cart));
+      };
+    });
+  </script>
+</body>
+</html>

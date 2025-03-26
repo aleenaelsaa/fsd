@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="revolveplans.xsl"?>
+<telecom>
+    <plan>
+        <name>Revolve Basic Plan</name>
+        <price>₹299</price>
+        <data>1GB/day</data>
+        <validity>28 days</validity>
+        <benefits>Unlimited Calls, 100 SMS/day</benefits>
+    </plan>
+    <plan>
+        <name>Revolve Standard Plan</name>
+        <price>₹499</price>
+        <data>2GB/day</data>
+        <validity>56 days</validity>
+        <benefits>Unlimited Calls, 100 SMS/day, Free OTT Subscription</benefits>
+    </plan>
+    <plan>
+        <name>Revolve Premium Plan</name>
+        <price>₹799</price>
+        <data>3GB/day</data>
+        <validity>84 days</validity>
+        <benefits>Unlimited Calls, 100 SMS/day, Premium OTT Subscription, Free Roaming</benefits>
+    </plan>
+</telecom>

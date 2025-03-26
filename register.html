@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="telecomApp">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Register</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+  <script>
+    var app = angular.module('telecomApp', []);
+    app.controller('RegisterController', function($scope) {
+        $scope.user = {};
+        $scope.register = function() {
+            alert('Registration successful for ' + $scope.user.name);
+        };
+        $scope.phoneFocused = false;
+        $scope.emailBlurred = false;
+        $scope.buttonHover = false;
+    });
+  </script>
+  <style>
+    /* Background settings */
+    body {
+      background: url('gallaxy.jpeg') no-repeat center center fixed;
+      background-size: cover;
+      height: 100vh;
+      margin: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    /* Centered form container */
+    .form-container {
+      background: rgba(255, 255, 255, 0.7);
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      width: 100%;
+      max-width: 500px;
+      text-align: center;
+    }
+
+    h2 {
+      font-weight: bold;
+      color: #333;
+    }
+
+    .back-home {
+      display: block;
+      text-align: center;
+      margin-bottom: 20px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body ng-controller="RegisterController">
+  <div class="form-container">
+    <a href="homepage.html" class="back-home">&larr; Back to Home</a>
+    <h2>Register with TeleCom</h2>
+    <form ng-submit="register()">
+      <div class="form-group">
+        <label for="name">Full Name:</label>
+        <input type="text" class="form-control" id="name" ng-model="user.name" placeholder="Enter your full name" required>
+        <p><strong>Uppercase Name:</strong> {{ user.name | uppercase }}</p>
+      </div>
+      <div class="form-group">
+        <label for="email">Email Address:</label>
+        <input type="email" class="form-control" id="email" ng-model="user.email" ng-blur="emailBlurred = true" placeholder="Enter your email" required>
+        <small class="text-danger" ng-show="emailBlurred && !user.email">Email is required.</small>
+      </div>
+      <div class="form-group">
+        <label for="phone">Phone Number:</label>
+        <input type="tel" class="form-control" id="phone" ng-model="user.phone" ng-focus="phoneFocused = true" placeholder="Enter your phone number" required>
+        <small class="text-info" ng-show="phoneFocused">Make sure to enter a valid phone number.</small>
+      </div>
+      <div class="form-group">
+        <label for="plan">Select Plan:</label>
+        <select class="form-control" id="plan" ng-model="user.plan">
+          <option value="basic">Basic Plan</option>
+          <option value="premium">Premium Plan</option>
+          <option value="unlimited">Unlimited Plan</option>
+        </select>
+      </div>
+      <a href="homepage.html">
+        <button class="btn btn-primary">Register</button>
+    </a>
+    
+      <p class="text-success" ng-show="buttonHover">Ready to register? Click the button!</p>
+    </form>
+  </div>
+</body>
+</html>
